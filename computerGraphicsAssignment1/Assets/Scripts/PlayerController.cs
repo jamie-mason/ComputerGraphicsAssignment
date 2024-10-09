@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-         cam = Camera.main;
-         rb = GetComponent<Rigidbody>();
+        cam = Camera.main;
+        rb = GetComponent<Rigidbody>();
 
     }
 
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 movementDir = (cam.transform.right * horizontalInput) + (cam.transform.forward * verticalInput); 
+        Vector3 movementDir = (cam.transform.right * horizontalInput) + (cam.transform.forward * verticalInput);
         movementDir.y = 0f;
 
         movementDir.Normalize();

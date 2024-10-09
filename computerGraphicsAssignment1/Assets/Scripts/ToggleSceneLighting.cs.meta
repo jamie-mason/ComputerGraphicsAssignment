@@ -3,7 +3,9 @@ guid: d8bd8d3208a34b44db06e03ef358334d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MaterialToToggle: {fileID: 2100000, guid: 886562e4d88b4f741a668139aa08bca0, type: 2}
+  - illumnationDispay: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
