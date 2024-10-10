@@ -216,7 +216,6 @@ public class ToggleSceneLighting : MonoBehaviour
             guiText = "No Lighting"; // No active lighting toggles
         }
 
-        Debug.Log(guiText); // Log the current GUI text
         return guiText; // Return the GUI text
     }
 

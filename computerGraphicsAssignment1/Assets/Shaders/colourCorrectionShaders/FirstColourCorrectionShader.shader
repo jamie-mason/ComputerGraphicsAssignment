@@ -5,6 +5,10 @@ Shader "Unlit/FirstColourCorrectionShader"
         _MainTex ("Texture", 2D) = "white" {}
         _LUT("Look Up Table",2D) = "white" {}
         _Contribution("Contribution", Range(0,1)) = 1
+        _RedValue("Red", Range(0,1)) = 0
+        _GreenValue("Green", Range(0,1)) = 0
+        _BlueValue("Blue", Range(0,32)) = 0
+
     }
     SubShader
     {
@@ -40,7 +44,9 @@ Shader "Unlit/FirstColourCorrectionShader"
             sampler2D _LUT;
             float4 _LUT_TexelSize;
             float _Contribution;
-
+            float _RedValue;
+            float _GreenValue;
+            float _BlueValue;
             v2f vert (appdata v)
             {
                 v2f o;
@@ -53,16 +59,16 @@ Shader "Unlit/FirstColourCorrectionShader"
             {
                 float maxColor = COLORS - 1.0;
                 fixed4 col = saturate(tex2D(_MainTex,i.uv));
-                float halfColX = 0.5 / _LUT_TexelSize.z;
-                float halfColY = 0.5 / _LUT_TexelSize.w;
+                float halfColX = _RedValue / _LUT_TexelSize.z;
+                float halfColY = _GreenValue / _LUT_TexelSize.w;
                 float threshold = maxColor / COLORS;
 
                 float xOffset = halfColX + col.r * threshold / COLORS;
                 float yOffset = halfColY + col.g * threshold;
-                float cell = floor(col.b * maxColor);
-                float2 lutPos = float2(cell / COLORS + xOffset, yOffset);
+                float cell = floor(col.b * (maxColor-_BlueValue));
+                float2 lutPos = float2(cell/COLORS + xOffset, yOffset);
                 float4 gradedCol = tex2D(_LUT, lutPos);
-                return lerp(col, gradedCol, _Contribution);
+                return lerp(col,gradedCol , _Contribution);
             }
             ENDCG
         }
