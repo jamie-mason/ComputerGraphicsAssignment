@@ -81,9 +81,9 @@ public class ToggleSceneLighting : MonoBehaviour
             if (renderer != null && renderer.material != null)
             {
                 Material existingMaterial = renderer.material; // Get the existing material
-
+                var originalTexture = renderer.material.mainTexture;
                 existingMaterial.shader = customLightingShader; // Apply custom shader
-                existingMaterial.mainTexture = renderer.material.mainTexture; // Preserve the original texture
+                existingMaterial.mainTexture = originalTexture; // Preserve the original texture
 
                 // Set shader properties safely
                 if (existingMaterial.HasProperty("_Color"))
