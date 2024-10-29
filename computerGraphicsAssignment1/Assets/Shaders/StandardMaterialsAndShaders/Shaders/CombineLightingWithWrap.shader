@@ -6,12 +6,12 @@ Shader "Custom/CombineLightingWithWrap"
         _SpecColor("Specular Colour", Color) = (1, 1, 1, 1) // Specular color
         _Shininess("Shininess", Range(1, 100)) = 10 // Shininess factor for specular highlights
         _MainTex("Main Texture", 2D) = "white" {} // Base texture of the object
-        _BumpMap ("Bump Texture", 2D) = "bump" {}
-        _BumpScale ("Scale", Float) = 1.000000
-        _ToggleAmbient("Toggle Ambient", Float) = 1 // Toggle for ambient lighting
-        _ToggleSpecular("Toggle Specular", Float) = 1 // Toggle for specular lighting
-        _ToggleDiffuse("Toggle Diffuse", Float) = 1 // Toggle for diffuse lighting
-        _ToggleDiffuseWrap("Toggle Diffuse Wrap", Float) = 1.0 // Toggle for diffuse wrap effect
+        _BumpMap ("Bump Texture", 2D) = "bump" {}        //bump texture property
+        _BumpScale ("Scale", Float) = 1.000000          //modifies tha scale of the bump effect
+        _ToggleAmbient("Toggle Ambient", Range(0,1)) = 1 // Toggle for ambient lighting
+        _ToggleSpecular("Toggle Specular", Range(0,1)) = 1 // Toggle for specular lighting
+        _ToggleDiffuse("Toggle Diffuse", Range(0,1)) = 1 // Toggle for diffuse lighting
+        _ToggleDiffuseWrap("Toggle Diffuse Wrap", Range(0,1)) = 1.0 // Toggle for diffuse wrap effect
     }
     SubShader
     {
@@ -78,7 +78,7 @@ Shader "Custom/CombineLightingWithWrap"
             // Fragment shader
             float4 frag(Vout i) : SV_Target
             {
-                float4 finalColor = tex2D(_MainTex, i.uv); // Sample texture
+                float4 finalColor = tex2D(_MainTex, i.uv) * _Color; // Sample texture
                 float4 diffuseColour;
 
                 float4 normalMapSample = tex2D(_BumpMap, i.uv) * 2.0 - 1.0; 

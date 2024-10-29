@@ -15,10 +15,12 @@ public class ToggleSceneLighting : MonoBehaviour
     int maxLength; // Maximum length of the lighting combinations
     int currentLight; // Currently selected lighting combination
 
-    public Shader customLightingShader; // Shader to be applied to materials
+    public Shader customLightingShaderSpecular; // Shader to be applied to materials with specular properties
+    public Shader customLightingShaderMetallic; // Shader to be applied to materials with metalic properties.
+
     private Renderer[] renderers; // Array to hold all renderers in the scene
     private List<Material> materials = new List<Material>(); // List to store modified materials
-    private string[] ToggleProperties = new string[4]; // Shader properties to be toggled
+    private string[] ToggleProperties = new string[5]; // Shader properties to be toggled
 
     [SerializeField] private TextMeshProUGUI illumnationDispay; // UI text to display current illumination type
 
@@ -29,6 +31,7 @@ public class ToggleSceneLighting : MonoBehaviour
         ToggleProperties[1] = "_ToggleDiffuse";
         ToggleProperties[2] = "_ToggleSpecular";
         ToggleProperties[3] = "_ToggleDiffuseWrap";
+        ToggleProperties[4] = "_ToggleMetallic";
 
         int numOfToggles = ToggleProperties.Length; // Number of toggle properties
         int numOfCombinations = (int)Math.Pow(2, numOfToggles); // Calculate number of combinations
@@ -81,42 +84,87 @@ public class ToggleSceneLighting : MonoBehaviour
             if (renderer != null && renderer.material != null)
             {
                 Material existingMaterial = renderer.material; // Get the existing material
-                var originalTexture = renderer.material.mainTexture;
-                existingMaterial.shader = customLightingShader; // Apply custom shader
-                existingMaterial.mainTexture = originalTexture; // Preserve the original texture
-
-                // Set shader properties safely
-                if (existingMaterial.HasProperty("_Color"))
+                Texture originalTexture = renderer.material.mainTexture;
+                if (renderer.material.HasProperty("_Metallic"))
                 {
-                    existingMaterial.SetColor("_Color", existingMaterial.GetColor("_Color"));
+
+
+                    float metallicVal = renderer.material.GetFloat("_Metallic");
+                    float glossinessVal = renderer.material.GetFloat("_Glossiness");
+                    existingMaterial.shader = customLightingShaderMetallic; // Apply custom shader
+                    existingMaterial.mainTexture = originalTexture; // Preserve the original texture
+
+                    // Set shader properties safely
+                    if (existingMaterial.HasProperty("_Color"))
+                    {
+                        existingMaterial.SetColor("_Color", existingMaterial.GetColor("_Color"));
+                    }
+                    else
+                    {
+                        existingMaterial.SetColor("_Color", Color.white);
+                    }
+
+                    if (existingMaterial.HasProperty("_Metallic"))
+                    {
+                        existingMaterial.SetFloat("_Metallic", metallicVal);
+                    }
+                    else
+                    {
+                        existingMaterial.SetFloat("_Metallic", 0f);
+                    }
+
+                    if (existingMaterial.HasProperty("_Glossiness"))
+                    {
+                        existingMaterial.SetFloat("_Glossiness", glossinessVal);
+                    }
+                    else
+                    {
+                        existingMaterial.SetFloat("_Glossiness", 0f);
+                    }
+
+                    materials.Add(existingMaterial); // Add the modified material to the list
                 }
+
                 else
                 {
-                    existingMaterial.SetColor("_Color", Color.white);
-                }
+                    existingMaterial.shader = customLightingShaderSpecular; // Apply custom shader
+                    existingMaterial.mainTexture = originalTexture; // Preserve the original texture
 
-                if (existingMaterial.HasProperty("_SpecColor"))
-                {
-                    existingMaterial.SetColor("_SpecColor", existingMaterial.GetColor("_SpecColor"));
-                }
-                else
-                {
-                    existingMaterial.SetColor("_SpecColor", Color.white);
-                }
+                    // Set shader properties safely
 
-                if (existingMaterial.HasProperty("_Shininess"))
-                {
-                    existingMaterial.SetFloat("_Shininess", existingMaterial.GetFloat("_Shininess"));
-                }
-                else
-                {
-                    existingMaterial.SetFloat("_Shininess", 10f);
-                }
+                    if (existingMaterial.HasProperty("_Color"))
+                    {
+                        existingMaterial.SetColor("_Color", existingMaterial.GetColor("_Color"));
+                    }
+                    else
+                    {
+                        existingMaterial.SetColor("_Color", Color.white);
+                    }
 
-                materials.Add(existingMaterial); // Add the modified material to the list
+                    if (existingMaterial.HasProperty("_SpecColor"))
+                    {
+                        existingMaterial.SetColor("_SpecColor", existingMaterial.GetColor("_SpecColor"));
+                    }
+                    else
+                    {
+                        existingMaterial.SetColor("_SpecColor", Color.white);
+                    }
+
+                    if (existingMaterial.HasProperty("_Shininess"))
+                    {
+                        existingMaterial.SetFloat("_Shininess", existingMaterial.GetFloat("_Shininess"));
+                    }
+                    else
+                    {
+                        existingMaterial.SetFloat("_Shininess", 10f);
+                    }
+
+                    materials.Add(existingMaterial); // Add the modified material to the list
+                }
             }
         }
     }
+
 
     private void Update()
     {

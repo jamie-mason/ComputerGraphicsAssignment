@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LUTTextures:
   - {fileID: 2800000, guid: d47193750708f824a92761c0047b57f6, type: 3}
+  - {fileID: 2800000, guid: 0653638e3ee02644a91692e39a7a2194, type: 3}
   LUTImage: {fileID: 0}
   LUTContributionInputField: {fileID: 0}
 --- !u!4 &24927021
@@ -273,7 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLightingToggles: 000000000000000000000000000000000000000000000000
-  customLightingShader: {fileID: 4800000, guid: e775562e85b391a46b1abda063f4d202, type: 3}
+  customLightingShaderSpecular: {fileID: 4800000, guid: e775562e85b391a46b1abda063f4d202, type: 3}
+  customLightingShaderMetallic: {fileID: 4800000, guid: d16762bc241e4c349a68694034b45992, type: 3}
   illumnationDispay: {fileID: 678494307}
 --- !u!4 &587213531
 Transform:
@@ -320,7 +322,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 678494306}
   - {fileID: 48285941}
   - {fileID: 789085684}
   - {fileID: 908050012}
@@ -548,12 +549,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 619120378}
+  m_Father: {fileID: 1718850694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 7.800049, y: 0}
-  m_SizeDelta: {x: -15.599929, y: 49}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 13, y: -24.5}
+  m_SizeDelta: {x: -25.999973, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678494307
 MonoBehaviour:
@@ -584,8 +585,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -602,10 +603,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 43.85
   m_fontSizeBase: 14
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1914,6 +1915,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 678494306}
   - {fileID: 619120378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
