@@ -81,89 +81,90 @@ public class ToggleSceneLighting : MonoBehaviour
 
         foreach (Renderer renderer in renderers)
         {
-            if (renderer != null && renderer.material != null)
+            if (renderer != null && renderer.materials != null)
             {
-                Material existingMaterial = renderer.material; // Get the existing material
-                Texture originalTexture = renderer.material.mainTexture;
-                if (renderer.material.HasProperty("_Metallic"))
+                foreach (Material mat in renderer.materials)
                 {
+                    Material existingMaterial = mat;
+                    bool isMetallic = existingMaterial.HasProperty("_Metallic");
+                    existingMaterial.shader = isMetallic ? customLightingShaderMetallic : customLightingShaderSpecular;
 
+                    // Preserve main texture
+                    PreserveMainTexture(existingMaterial);
 
-                    float metallicVal = renderer.material.GetFloat("_Metallic");
-                    float glossinessVal = renderer.material.GetFloat("_Glossiness");
-                    existingMaterial.shader = customLightingShaderMetallic; // Apply custom shader
-                    existingMaterial.mainTexture = originalTexture; // Preserve the original texture
+                    // Set properties
+                    SetMaterialProperty(existingMaterial, mat, "_BumpScale", 0f);
+                    SetMaterialProperty(existingMaterial, mat, "_Color", Color.white);
+                    SetTextureIfPropertyExists(existingMaterial, mat, "_BumpMap");
 
-                    // Set shader properties safely
-                    if (existingMaterial.HasProperty("_Color"))
+                    if (isMetallic)
                     {
-                        existingMaterial.SetColor("_Color", existingMaterial.GetColor("_Color"));
+                        SetMaterialProperty(existingMaterial, mat, "_Metallic", 0f);
+                        SetMaterialProperty(existingMaterial, mat, "_Glossiness", 0f);
                     }
                     else
                     {
-                        existingMaterial.SetColor("_Color", Color.white);
+                        SetMaterialProperty(existingMaterial, mat, "_SpecColor", Color.white);
+                        SetMaterialProperty(existingMaterial, mat, "_Shininess", 0f);
                     }
 
-                    if (existingMaterial.HasProperty("_Metallic"))
-                    {
-                        existingMaterial.SetFloat("_Metallic", metallicVal);
-                    }
-                    else
-                    {
-                        existingMaterial.SetFloat("_Metallic", 0f);
-                    }
-
-                    if (existingMaterial.HasProperty("_Glossiness"))
-                    {
-                        existingMaterial.SetFloat("_Glossiness", glossinessVal);
-                    }
-                    else
-                    {
-                        existingMaterial.SetFloat("_Glossiness", 0f);
-                    }
-
-                    materials.Add(existingMaterial); // Add the modified material to the list
-                }
-
-                else
-                {
-                    existingMaterial.shader = customLightingShaderSpecular; // Apply custom shader
-                    existingMaterial.mainTexture = originalTexture; // Preserve the original texture
-
-                    // Set shader properties safely
-
-                    if (existingMaterial.HasProperty("_Color"))
-                    {
-                        existingMaterial.SetColor("_Color", existingMaterial.GetColor("_Color"));
-                    }
-                    else
-                    {
-                        existingMaterial.SetColor("_Color", Color.white);
-                    }
-
-                    if (existingMaterial.HasProperty("_SpecColor"))
-                    {
-                        existingMaterial.SetColor("_SpecColor", existingMaterial.GetColor("_SpecColor"));
-                    }
-                    else
-                    {
-                        existingMaterial.SetColor("_SpecColor", Color.white);
-                    }
-
-                    if (existingMaterial.HasProperty("_Shininess"))
-                    {
-                        existingMaterial.SetFloat("_Shininess", existingMaterial.GetFloat("_Shininess"));
-                    }
-                    else
-                    {
-                        existingMaterial.SetFloat("_Shininess", 10f);
-                    }
-
-                    materials.Add(existingMaterial); // Add the modified material to the list
+                    materials.Add(existingMaterial); // Add to materials list
                 }
             }
         }
     }
+
+    // Preserve the main texture if it exists
+    void PreserveMainTexture(Material material)
+    {
+        if (material.mainTexture != null)
+        {
+            // No need to assign since mainTexture is already preserved
+            return;
+        }
+
+        if (material.HasProperty("_MainTex"))
+        {
+            material.SetTexture("_MainTex", material.GetTexture("_MainTex"));
+        }
+    }
+
+    // Helper function to set material properties
+    void SetMaterialProperty(Material existingMaterial, Material sourceMaterial, string property, object defaultValue)
+    {
+        if (sourceMaterial.HasProperty(property) && existingMaterial.HasProperty(property))
+        {
+            if (defaultValue is Color)
+            {
+                existingMaterial.SetColor(property, sourceMaterial.GetColor(property));
+            }
+            else if (defaultValue is float)
+            {
+                existingMaterial.SetFloat(property, sourceMaterial.GetFloat(property));
+            }
+        }
+        else if (existingMaterial.HasProperty(property))
+        {
+            if (defaultValue is Color)
+            {
+                existingMaterial.SetColor(property, (Color)defaultValue);
+            }
+            else if (defaultValue is float)
+            {
+                existingMaterial.SetFloat(property, (float)defaultValue);
+            }
+        }
+    }
+
+    // Helper function to set a texture if the property exists
+    void SetTextureIfPropertyExists(Material existingMaterial, Material sourceMaterial, string property)
+    {
+        if (sourceMaterial.HasProperty(property) && existingMaterial.HasProperty(property))
+        {
+            existingMaterial.SetTexture(property, sourceMaterial.GetTexture(property));
+        }
+    }
+
 
 
     private void Update()

@@ -8,12 +8,10 @@ ScriptsOnlyBuild:
     - ToggleSceneLighting
     Cinemachine.dll:
     - Cinemachine.CinemachineBrain
-    - Cinemachine.CinemachineGroupComposer
     - Cinemachine.CinemachineHardLookAt
     - Cinemachine.CinemachineOrbitalTransposer
     - Cinemachine.CinemachinePipeline
     - Cinemachine.CinemachineTargetGroup
-    - Cinemachine.CinemachineTransposer
     - Cinemachine.CinemachineVirtualCamera
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -125,19 +123,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1630}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2732}
     - Class: 114
-      Script: {instanceID: 2940}
+      Script: {instanceID: 2942}
     - Class: 114
-      Script: {instanceID: 3244}
+      Script: {instanceID: 3246}
     - Class: 114
-      Script: {instanceID: 5546}
+      Script: {instanceID: 5550}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5872}
     - Class: 114
-      Script: {instanceID: 6366}
+      Script: {instanceID: 6370}
     - Class: 114
-      Script: {instanceID: 24712}
+      Script: {instanceID: 27190}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -198,51 +196,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2454}
     - Class: 114
-      Script: {instanceID: 2660}
+      Script: {instanceID: 2662}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2732}
     - Class: 114
-      Script: {instanceID: 2796}
+      Script: {instanceID: 2798}
     - Class: 114
-      Script: {instanceID: 2838}
+      Script: {instanceID: 2840}
     - Class: 114
-      Script: {instanceID: 2940}
+      Script: {instanceID: 2942}
     - Class: 114
-      Script: {instanceID: 3578}
+      Script: {instanceID: 3580}
     - Class: 114
-      Script: {instanceID: 4088}
+      Script: {instanceID: 4164}
     - Class: 114
-      Script: {instanceID: 4162}
+      Script: {instanceID: 4262}
     - Class: 114
-      Script: {instanceID: 4260}
+      Script: {instanceID: 4272}
     - Class: 114
-      Script: {instanceID: 4270}
+      Script: {instanceID: 4278}
     - Class: 114
-      Script: {instanceID: 4276}
+      Script: {instanceID: 4450}
     - Class: 114
-      Script: {instanceID: 4448}
+      Script: {instanceID: 4546}
     - Class: 114
-      Script: {instanceID: 4544}
+      Script: {instanceID: 5112}
     - Class: 114
-      Script: {instanceID: 5110}
+      Script: {instanceID: 5296}
     - Class: 114
-      Script: {instanceID: 5294}
+      Script: {instanceID: 5422}
     - Class: 114
-      Script: {instanceID: 5730}
+      Script: {instanceID: 5734}
     - Class: 114
-      Script: {instanceID: 5838}
+      Script: {instanceID: 5842}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5872}
     - Class: 114
-      Script: {instanceID: 6044}
+      Script: {instanceID: 6048}
     - Class: 114
-      Script: {instanceID: 6366}
+      Script: {instanceID: 6370}
     - Class: 114
-      Script: {instanceID: 6932}
-    - Class: 114
-      Script: {instanceID: 7060}
-    - Class: 114
-      Script: {instanceID: 23928}
+      Script: {instanceID: 6936}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -285,19 +279,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1630}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2732}
     - Class: 114
-      Script: {instanceID: 2940}
+      Script: {instanceID: 2942}
     - Class: 114
-      Script: {instanceID: 3244}
+      Script: {instanceID: 3246}
     - Class: 114
-      Script: {instanceID: 5546}
+      Script: {instanceID: 5550}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5872}
     - Class: 114
-      Script: {instanceID: 6366}
+      Script: {instanceID: 6370}
     - Class: 114
-      Script: {instanceID: 24712}
+      Script: {instanceID: 27190}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -477,6 +471,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: ToggleSceneLighting
+  - hash:
+      serializedVersion: 2
+      Hash: 3232ccd084371d2b63899bd65ba4dc9c
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ButtonScript
   - hash:
       serializedVersion: 2
       Hash: 1321993db8249e1e05e1e0492b2bbdc3
@@ -1151,6 +1151,12 @@ ScriptsOnlyBuild:
     className: TMP_DigitValidator
   - hash:
       serializedVersion: 2
+      Hash: 91136cffb80e402c548867ce967e6fc1
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Hitbottom
+  - hash:
+      serializedVersion: 2
       Hash: d82086405f46de14829f6b4bcbdd8fc9
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1667,16 +1673,10 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 3232ccd084371d2b63899bd65ba4dc9c
+      Hash: 3d5b3119af18550acf1221b146062343
     assemblyName: Assembly-CSharp
     namespaceName: 
-    className: ButtonScript
-  - hash:
-      serializedVersion: 2
-      Hash: 91136cffb80e402c548867ce967e6fc1
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: Hitbottom
+    className: ProcessandPrintShaderValues
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
