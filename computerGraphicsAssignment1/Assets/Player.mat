@@ -97,6 +97,10 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _ToggleAmbient: 0
+    - _ToggleDiffuse: 1
+    - _ToggleDiffuseWrap: 0
+    - _ToggleMetallic: 0
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

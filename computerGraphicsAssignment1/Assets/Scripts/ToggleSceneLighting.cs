@@ -87,23 +87,33 @@ public class ToggleSceneLighting : MonoBehaviour
                 {
                     Material existingMaterial = mat;
                     bool isMetallic = existingMaterial.HasProperty("_Metallic");
-                    existingMaterial.shader = isMetallic ? customLightingShaderMetallic : customLightingShaderSpecular;
+                    bool isSpecular = existingMaterial.HasProperty("_SpecColor");
+                    
 
                     // Preserve main texture
-                    PreserveMainTexture(existingMaterial);
-
-                    // Set properties
-                    SetMaterialProperty(existingMaterial, mat, "_BumpScale", 0f);
-                    SetMaterialProperty(existingMaterial, mat, "_Color", Color.white);
-                    SetTextureIfPropertyExists(existingMaterial, mat, "_BumpMap");
+                    
 
                     if (isMetallic)
                     {
+                        PreserveMainTexture(existingMaterial);
+
+                        // Set properties
+                        SetMaterialProperty(existingMaterial, mat, "_BumpScale", 0f);
+                        SetMaterialProperty(existingMaterial, mat, "_Color", Color.white);
+                        SetTextureIfPropertyExists(existingMaterial, mat, "_BumpMap");
+                        existingMaterial.shader = customLightingShaderMetallic;
                         SetMaterialProperty(existingMaterial, mat, "_Metallic", 0f);
                         SetMaterialProperty(existingMaterial, mat, "_Glossiness", 0f);
                     }
-                    else
+                    else if(isSpecular)
                     {
+                        PreserveMainTexture(existingMaterial);
+
+                        // Set properties
+                        SetMaterialProperty(existingMaterial, mat, "_BumpScale", 0f);
+                        SetMaterialProperty(existingMaterial, mat, "_Color", Color.white);
+                        SetTextureIfPropertyExists(existingMaterial, mat, "_BumpMap");
+                        existingMaterial.shader = customLightingShaderSpecular;
                         SetMaterialProperty(existingMaterial, mat, "_SpecColor", Color.white);
                         SetMaterialProperty(existingMaterial, mat, "_Shininess", 0f);
                     }

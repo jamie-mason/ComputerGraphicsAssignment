@@ -23,7 +23,10 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+            #include "UnityCG.cginc" // Required for Unity functions
+            #include "UnityLightingCommon.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
 
             // Properties
             sampler2D _MainTex; // Main texture
@@ -35,7 +38,6 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
             uniform float _ToggleAmbient; // Toggle for ambient lighting
             uniform float _ToggleMetallic; // Toggle for specular lighting
             uniform float _ToggleDiffuse; // Toggle for diffuse lighting
-            uniform float4 _LightColor0; // Color of the main light source
             uniform float _ToggleDiffuseWrap; // Toggle for diffuse wrap effect
 
 
@@ -51,6 +53,7 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
             struct Vout
             {
                 float4 pos : SV_POSITION;
+                fixed4 diff : COLOR0;
                 float3 normal : TEXCOORD1;
                 float3 lightDir : TEXCOORD2;
                 float3 viewDir : TEXCOORD3;
@@ -72,7 +75,10 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
                 float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 o.lightDir = normalize(_WorldSpaceLightPos0.xyz - worldPos);
                 o.viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos);
-
+                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
+                o.diff = nl * _LightColor0;
+                TRANSFER_SHADOW(o);
                 return o;
             }
 
@@ -97,12 +103,10 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
                 // Check if diffuse lighting is enabled
                 if (_ToggleDiffuse > 0.5)
                 {
-                    
-                    
-                    diff = max(0.0, dot(normalize(i.normal), normalize(i.lightDir)));  
+                    diff = max(0.0, dot(i.normal, i.lightDir));  
 
-                    
-                    finalColor.rgb *= _LightColor0.xyz * TexColour.rgb; // Apply diffuse lighting only if enabled
+                    fixed shadow = SHADOW_ATTENUATION(i);
+                    finalColor.rgb *= _LightColor0.xyz * _Color.rgb * shadow; // Apply diffuse lighting
                 }
                 
                 if (_ToggleDiffuseWrap > 0.5)   //toggle diffuse wrap
@@ -143,6 +147,37 @@ Shader "Custom/CombineLightingWithWrapMetallicVersion"
                 }
 
                 return finalColor;
+            }
+            ENDCG
+        }
+        Pass
+        {
+            Tags {"LightMode"="ShadowCaster"}
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+            struct appdata {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+            struct v2f {
+                V2F_SHADOW_CASTER;
+            };
+
+            v2f vert(appdata v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
             }
             ENDCG
         }
