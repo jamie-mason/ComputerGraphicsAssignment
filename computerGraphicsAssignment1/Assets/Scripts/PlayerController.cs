@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
     [SerializeField] private float force = 1f;
+    [SerializeField] private ParticleSystem explosion;
+
     Camera cam;
     Rigidbody rb;
     Vector3 movementDir;
@@ -33,8 +35,13 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if("Push" == collision.gameObject.tag){
-            if(collision.gameObject.GetComponent<Rigidbody>() != null){
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(movementDir * force,ForceMode.Impulse);
+            if(collision.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(movementDir * force, ForceMode.Impulse);
+                collision.gameObject.GetComponent<Rigidbody>().AddRelativeTorque(movementDir * force, ForceMode.Impulse);
+                explosion.transform.position = collision.contacts[0].point;
+                explosion.Play();
+                
             }
         }
         

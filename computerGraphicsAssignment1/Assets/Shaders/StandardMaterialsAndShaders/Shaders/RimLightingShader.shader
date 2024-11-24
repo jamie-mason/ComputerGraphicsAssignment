@@ -3,7 +3,7 @@ Shader "Custom/RimLightingShader"
     Properties
     {
         _RimColour ("Rim Colour", Color) = (1, 0, 0, 1) 
-        _RimPower ("Rim Power", Range(0.1, 4.0)) = 2.0
+        _RimPower ("Rim Power", Range(0.1, 10.0)) = 2.0
     }
     SubShader
     {

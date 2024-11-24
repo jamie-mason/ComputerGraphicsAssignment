@@ -3,7 +3,8 @@ Shader "Custom/RimLightingSurfaceShader"
     Properties
     {
         _RimColour ("Rim Colour", Color) = (1, 0, 0, 1) 
-        _RimPower ("Rim Power", Range(0.1, 4.0)) = 2.0
+        _RimPower ("Rim Power", Range(0.1, 10.0)) = 2.0
+        _ToggleRimLighting("Rim Toggle", Range (0, 1)) = 1
     }
     SubShader
     {
@@ -26,13 +27,15 @@ Shader "Custom/RimLightingSurfaceShader"
 
         float _RimPower;
         float4 _RimColour;
-
+        float _ToggleRimLighting;
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            float rimFactor = 1.0 - saturate(dot(normalize(IN.viewDir),o.Normal));
-            //o.Emission = _RimColour.rgb * rimFactor;
-            o.Emission = _RimColour.rgb * pow(rimFactor,_RimPower);
+            if(_ToggleRimLighting>=0.5){
+                float rimFactor = 1.0 - saturate(dot(normalize(IN.viewDir),o.Normal));
+                //o.Emission = _RimColour.rgb * rimFactor;
+                o.Emission = _RimColour.rgb * pow(rimFactor,_RimPower);
+            }
         }
         ENDCG
     }

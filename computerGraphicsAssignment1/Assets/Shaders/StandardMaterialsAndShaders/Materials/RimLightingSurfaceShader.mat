@@ -25,7 +25,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _RimPower: 1.5
+    - _RimPower: 10
+    - _ToggleRimLighting: 1
     m_Colors:
     - _RimColour: {r: 0.96981126, g: 0.9404749, b: 0.83989316, a: 1}
   m_BuildTextureStacks: []
