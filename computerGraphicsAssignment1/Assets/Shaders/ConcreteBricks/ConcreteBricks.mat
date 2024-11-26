@@ -52,7 +52,7 @@ Material:
     - _Metallic: 0
     - _ToggleTextures: 1
     - _TwoSided: 0
-    - _VectorRange: 2.7949743
+    - _VectorRange: 21.632147
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColour: {r: 1, g: 0.29999998, b: 0, a: 1}

@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
 
         rb.AddForce(movementDir * speed * Time.deltaTime, ForceMode.Acceleration);
+        
     }
     void OnCollisionEnter(Collision collision)
     {

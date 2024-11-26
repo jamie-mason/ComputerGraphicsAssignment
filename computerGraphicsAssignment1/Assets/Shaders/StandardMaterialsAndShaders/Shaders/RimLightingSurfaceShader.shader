@@ -33,7 +33,6 @@ Shader "Custom/RimLightingSurfaceShader"
         {
             if(_ToggleRimLighting>=0.5){
                 float rimFactor = 1.0 - saturate(dot(normalize(IN.viewDir),o.Normal));
-                //o.Emission = _RimColour.rgb * rimFactor;
                 o.Emission = _RimColour.rgb * pow(rimFactor,_RimPower);
             }
         }

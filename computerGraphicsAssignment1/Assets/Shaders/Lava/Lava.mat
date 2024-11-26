@@ -55,13 +55,13 @@ Material:
     - _BUILTIN_ZWriteControl: 0
     - _EmmisiveIntensity: 1
     - _Metallic: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 1
     - _ToggleTexture: 0.5
     - _ToggleTextures: 1
     m_Colors:
     - _LavaColor: {r: 1, g: 1, b: 1, a: 1}
     - _LavaNormalSpeed: {r: -0.1, g: 0, b: 0, a: 0}
-    - _LavaScale: {r: 7, g: 7, b: 0, a: 0}
+    - _LavaScale: {r: 5, g: 5, b: 0, a: 0}
     - _LavaSpeed: {r: -0.1, g: 0, b: 0, a: 0}
     - _NormalSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
