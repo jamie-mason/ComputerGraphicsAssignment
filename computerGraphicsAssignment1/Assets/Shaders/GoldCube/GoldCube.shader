@@ -14,6 +14,7 @@ Shader "Custom/GoldCube"
         _TwoSided ("Enable Two-Sided Rendering", Float) = 0
         _ToggleTextures ("Toggle Texture", Range(0,1)) = 0.5
     }
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -23,7 +24,6 @@ Shader "Custom/GoldCube"
 
         CGPROGRAM
         #pragma surface surf Standard fullforwardshadows
-
         #pragma target 3.0
 
         sampler2D _MainTex;
@@ -59,30 +59,29 @@ Shader "Custom/GoldCube"
         void surf(Input IN, inout SurfaceOutputStandard o)
         {
             // Parallax mapping for height map
-            if(_ToggleTextures >= 0.5){
-            float height = tex2D(_HeightMap, IN.uv_HeightMap).r;
-            float2 parallaxUV = ParallaxOffset(IN.uv_MainTex, height, IN.viewDir);
+            if (_ToggleTextures >= 0.5)
+            {
+                float height = tex2D(_HeightMap, IN.uv_HeightMap).r;
+                float2 parallaxUV = ParallaxOffset(IN.uv_MainTex, height, IN.viewDir);
 
-            // Albedo texture with color tint
-            fixed4 c = tex2D(_MainTex, parallaxUV) * _Color;
-            o.Albedo = c.rgb;
+                // Albedo texture with color tint
+                fixed4 c = tex2D(_MainTex, parallaxUV) * _Color;
+                o.Albedo = c.rgb;
 
-            // Roughness map modifies smoothness
-            float roughness = tex2D(_RoughnessMap, IN.uv_RoughnessMap).g;
-            o.Smoothness = lerp(_Glossiness, roughness, roughness);
+                // Roughness map modifies smoothness
+                float roughness = tex2D(_RoughnessMap, IN.uv_RoughnessMap).g;
+                o.Smoothness = lerp(_Glossiness, roughness, roughness);
 
-            // Normal map
-            
-            o.Normal = UnpackNormal(tex2D(_BumpMap, parallaxUV)) * _BumpScale;
+                // Normal map
+                o.Normal = UnpackNormal(tex2D(_BumpMap, parallaxUV)) * _BumpScale;
+                o.Alpha = c.a;
+            }
+            else
+            {
+                o.Albedo = _Color.rgb;
+                o.Alpha = _Color.a;
+            }
 
-            o.Alpha = c.a;
-}
-else{
-o.Albedo = _Color.rgb;
-o.Alpha = _Color.a;
-
-
-}
             // Metallic value
             o.Metallic = _Metallic;
 

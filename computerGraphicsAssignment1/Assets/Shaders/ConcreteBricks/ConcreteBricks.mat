@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: d5d8f24e95729a247a7ec7efb20d0bc7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GlowMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HeightMap:
         m_Texture: {fileID: 2800000, guid: eb19f28fd716b1a428200e5d06868ec7, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -43,10 +47,14 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Glossiness: 0.5
+    - _GlowIntensity: 1
     - _HeightScale: 0.1
     - _Metallic: 0
     - _ToggleTextures: 1
     - _TwoSided: 0
+    - _VectorRange: 2.7949743
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GlowColour: {r: 1, g: 0.29999998, b: 0, a: 1}
+    - _VectorBounds: {r: -8.063753, g: -3.8393998, b: 7.777278, a: 0}
   m_BuildTextureStacks: []
