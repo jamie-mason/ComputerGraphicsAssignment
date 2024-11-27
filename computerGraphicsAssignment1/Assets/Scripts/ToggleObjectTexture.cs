@@ -9,10 +9,11 @@ public class ToggleObjectTexture : MonoBehaviour
     bool texturesOn;
     [SerializeField] private List<Material> materials;
     [SerializeField] private TextMeshProUGUI textureOnIndicator;
+
     void Start(){
         texturesOn = true;
-        SetTextures();
-        setTextureLabel();
+        SetTextures(true);
+        setTextureLabel(true);
     }
     // Update is called once per frame
 
@@ -38,6 +39,19 @@ public class ToggleObjectTexture : MonoBehaviour
             }
         }
     }
+    void SetTextures(bool toggle){
+        foreach(Material mat in materials){
+            if(mat.HasProperty("_ToggleTextures")){
+                if(toggle){
+                    mat.SetFloat("_ToggleTextures", 1f);
+                }
+                else
+                {
+                    mat.SetFloat("_ToggleTextures", 0f);
+                }
+            }
+        }
+    }
     void setTextureLabel(){
         if(texturesOn){
             textureOnIndicator.text = "Texturing Textures ON.";
@@ -47,6 +61,22 @@ public class ToggleObjectTexture : MonoBehaviour
             textureOnIndicator.text = "Texturing Textures OFF.";
                 
         }
+    }
+    
+    void setTextureLabel(bool toggle){
+        if(toggle){
+            textureOnIndicator.text = "Texturing Textures ON.";
+                
+        }
+        else{
+            textureOnIndicator.text = "Texturing Textures OFF.";
+                
+        }
+    }
+
+    void OnDestroy(){
+        setTextureLabel(true);
+        SetTextures(true);
     }
 }
 

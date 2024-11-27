@@ -10,6 +10,7 @@ Shader "Unlit/EMberShader"
         _Transparency ("Transparency", Range(0, 1)) = 0.5
         _FlickerAmount ("Flicker Amount", Range(0, 1)) = 0.2
         _Speed ("Particle Speed", Range(0, 5)) = 2.0
+        _ToggleTextures("Toggle Texture", Range(0,1)) = 1.0
     }
     
     SubShader
@@ -33,6 +34,8 @@ Shader "Unlit/EMberShader"
             float _Transparency;
             float _FlickerAmount;
             float _Speed;
+            float _ToggleTextures;
+
 
             struct appdata
             {
@@ -59,9 +62,15 @@ Shader "Unlit/EMberShader"
             {
                 // Sample the base texture
                 half4 texColor = tex2D(_MainTex, i.uv);
-
+                
                 // Apply the particle color
                 texColor *= _Color;
+                if(_ToggleTextures<0.5){
+                    //if textures are disabled set the texcolor to _Color
+                    texColor = _Color;
+                }
+
+                
 
                 // Calculate the flicker effect by adding a sine wave modulation
                 float flicker = sin(_TimeScale * _Time + i.uv.x * _Speed) * 0.5 + 0.5;

@@ -9,6 +9,7 @@ Shader "Custom/EnhancedTrailEffect"
         _Width ("Trail Width", Float) = 1.0
         _Speed ("Texture Scroll Speed", Float) = 1.0
         _Emission ("Emission Intensity", Float) = 1.0
+        _ToggleTextures("Toggle Texture", Range(0,1)) = 1.0
     }
 
     SubShader
@@ -48,6 +49,7 @@ Shader "Custom/EnhancedTrailEffect"
             float _Width;
             float _Speed;
             float _Emission;
+            float _ToggleTextures;
 
             v2f vert (appdata v)
             {
@@ -65,9 +67,14 @@ Shader "Custom/EnhancedTrailEffect"
                 float2 uv = i.uv;
                 uv.x += _Speed * _Time.y; // Scrolling effect over time
                 fixed4 texColor = tex2D(_MainTex, uv);
-
+                fixed4 color;
                 // Apply color gradient and fade
-                fixed4 color = lerp(texColor * _Color, float4(0, 0, 0, 0), i.dist);
+                if(_ToggleTextures >= 0.5){
+                    color = lerp(texColor * _Color, float4(0, 0, 0, 0), i.dist);
+                }
+                else{
+                    color = lerp(_Color, float4(0, 0, 0, 0), i.dist);
+                }
 
                 // Add glow (emission effect)
                 color.rgb += color.rgb * _Emission;

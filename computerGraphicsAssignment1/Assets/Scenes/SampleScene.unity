@@ -394,6 +394,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7f48e696d2cf54b47926638751bd936f, type: 2}
   - {fileID: 2100000, guid: 7d8ae32ce7437cd459101cf359ec1a32, type: 2}
   - {fileID: 2100000, guid: 0abd4c7e46f210140a9444c1392a2a39, type: 2}
+  - {fileID: 2100000, guid: 24f90732c40a5174bb1608e042254fdc, type: 2}
+  - {fileID: 2100000, guid: b82ae4db771d3024bb14ea24d1e10cbf, type: 2}
   textureOnIndicator: {fileID: 588583376}
 --- !u!4 &577358098
 Transform:

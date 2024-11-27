@@ -33,6 +33,7 @@ Material:
     - _GlowIntensity: 3.69
     - _Speed: 2
     - _TimeScale: 1
+    - _ToggleTextures: 1
     - _Transparency: 1
     m_Colors:
     - _Color: {r: 1, g: 0.5, b: 0, a: 1}

@@ -33,6 +33,7 @@ Material:
     - _FadeEnd: 1
     - _FadeStart: 0
     - _Speed: 0.1
+    - _ToggleTextures: 1
     - _Width: 1
     m_Colors:
     - _Color: {r: 0.40000004, g: 0.20784315, b: 0.14901961, a: 1}
