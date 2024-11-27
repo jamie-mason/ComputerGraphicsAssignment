@@ -2,3 +2,6 @@
 
 [Video of Game](https://www.youtube.com/watch?v=NQcVXgRch6I)
 
+Contributors: 
+Jamie Mason 100819142
+Xavier Bastalla 100557897
